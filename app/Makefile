@@ -1,4 +1,6 @@
 BINARY_NAME=centauri
+# BINARY_NAME=centauri.exe
+
 
 build:
 	@go mod vendor
@@ -28,4 +30,6 @@ stop:
 	@echo "Stopping Centauri"
 	@-pkill -SIGTERM -f "./tmp/${BINARY_NAME}"
 	@echo "Stopped Centauri!"
+
+restart: stop start
 
