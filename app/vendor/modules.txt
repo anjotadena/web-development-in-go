@@ -1,0 +1,4 @@
+# github.com/anjotadena/centauri v0.0.0-00010101000000-000000000000 => ../centauri
+## explicit; go 1.20
+github.com/anjotadena/centauri
+# github.com/anjotadena/centauri => ../centauri

@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-  result := centauri.TestFunc2(1, 1)
+  result := centauri.TestFunc3(1, 1)
 
   fmt.Println(result)
 }
