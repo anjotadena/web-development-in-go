@@ -23,7 +23,8 @@ func initApplication() *application {
 	}
 
 	cen.AppName = "Centauri App"
-	cen.Debug = true
+
+	cen.InfoLog.Println("Debug is set to", cen.Debug)
 
 	app := &application{
 		App: cen,
