@@ -1,5 +1,11 @@
 package centauri
 
+import (
+	"fmt"
+
+	"github.com/joho/godotenv"
+)
+
 const version = "1.0.0"
 
 type Centauri struct {
@@ -20,6 +26,18 @@ func (c *Centauri) New(rootPath string) error {
 		return err
 	}
 
+	err = c.checkDotEnv(rootPath)
+
+	if err != nil {
+		return nil
+	}
+
+	err = godotenv.Load(rootPath + "/.env")
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -34,5 +52,15 @@ func (c *Centauri) Init(p initPaths) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func (c *Centauri) checkDotEnv(path string) error {
+	err := c.CreateFileIfNotExists(fmt.Sprintf("%s/.env", path))
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
