@@ -1,7 +1,6 @@
 BINARY_NAME=centauri
 # BINARY_NAME=centauri.exe
 
-
 build:
 	@go mod vendor
 	@echo "Building Centauri..."
