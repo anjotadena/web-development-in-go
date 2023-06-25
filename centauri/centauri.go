@@ -18,6 +18,12 @@ type Centauri struct {
 	ErrorLog *log.Logger
 	InfoLog  *log.Logger
 	RootPath string
+	config   config
+}
+
+type config struct {
+	port     string
+	renderer string
 }
 
 func (c *Centauri) New(rootPath string) error {
@@ -52,6 +58,7 @@ func (c *Centauri) New(rootPath string) error {
 
 	c.Debug, _ = strconv.ParseBool(os.Getenv("DEBUG"))
 	c.Version = version
+	c.RootPath = rootPath
 
 	return nil
 }
