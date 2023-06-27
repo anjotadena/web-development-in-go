@@ -1,9 +1,14 @@
 package main
 
-import "github.com/anjotadena/centauri"
+import (
+	"app/handlers"
+
+	"github.com/anjotadena/centauri"
+)
 
 type application struct {
-	App *centauri.Centauri
+	App      *centauri.Centauri
+	Handlers *handlers.Handlers
 }
 
 func main() {

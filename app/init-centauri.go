@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/handlers"
 	"log"
 	"os"
 
@@ -24,11 +25,18 @@ func initApplication() *application {
 
 	cen.AppName = "Centauri App"
 
+	handlers := &handlers.Handlers{
+		App: cen,
+	}
+
 	cen.InfoLog.Println("Debug is set to", cen.Debug)
 
 	app := &application{
-		App: cen,
+		App:      cen,
+		Handlers: handlers,
 	}
+
+	app.App.Routes = app.routes()
 
 	return app
 }
