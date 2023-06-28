@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/CloudyKit/jet/v6"
 	"github.com/anjotadena/centauri/render"
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
@@ -24,6 +25,7 @@ type Centauri struct {
 	RootPath string
 	Routes   *chi.Mux
 	Render   *render.Render
+	JetViews *jet.Set
 	config   config
 }
 
@@ -71,7 +73,14 @@ func (c *Centauri) New(rootPath string) error {
 		renderer: os.Getenv("RENDERER"),
 	}
 
-	c.Render = c.createRenderer(c)
+	var views = jet.NewSet(
+		jet.NewOSFileSystemLoader(fmt.Sprintf("%s/views", rootPath)),
+		jet.InDevelopmentMode(),
+	)
+
+	c.JetViews = views
+
+	c.createRenderer()
 
 	return nil
 }
@@ -129,12 +138,13 @@ func (c *Centauri) startLoggers() (*log.Logger, *log.Logger) {
 	return infoLog, errorLog
 }
 
-func (c *Centauri) createRenderer(cen *Centauri) *render.Render {
+func (c *Centauri) createRenderer() {
 	r := render.Render{
-		Renderer: cen.config.renderer,
-		RootPath: cen.RootPath,
-		Port:     cen.config.port,
+		Renderer: c.config.renderer,
+		RootPath: c.RootPath,
+		Port:     c.config.port,
+		JetViews: c.JetViews,
 	}
 
-	return &r
+	c.Render = &r
 }
