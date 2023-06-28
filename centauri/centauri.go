@@ -71,7 +71,7 @@ func (c *Centauri) New(rootPath string) error {
 		renderer: os.Getenv("RENDERER"),
 	}
 
-	c.Render = c.createRenderer(c)
+	c.createRenderer()
 
 	return nil
 }
@@ -129,12 +129,12 @@ func (c *Centauri) startLoggers() (*log.Logger, *log.Logger) {
 	return infoLog, errorLog
 }
 
-func (c *Centauri) createRenderer(cen *Centauri) *render.Render {
+func (c *Centauri) createRenderer() {
 	r := render.Render{
-		Renderer: cen.config.renderer,
-		RootPath: cen.RootPath,
-		Port:     cen.config.port,
+		Renderer: c.config.renderer,
+		RootPath: c.RootPath,
+		Port:     c.config.port,
 	}
 
-	return &r
+	c.Render = &r
 }
